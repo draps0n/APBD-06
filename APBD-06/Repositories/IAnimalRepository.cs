@@ -1,9 +1,12 @@
-﻿using APBD_06.Enums;
-using APBD_06.Models;
+﻿using APBD_06.DTOs;
+using APBD_06.Enums;
 
 namespace APBD_06.Repositories;
 
 public interface IAnimalRepository
 {
-    IEnumerable<Animal> GetAnimals(OrderBy? orderBy);
+    IEnumerable<GetAnimalsResponse> GetAnimals(OrderBy? orderBy);
+    int AddAnimal(CreateAnimalRequest animalRequest);
+    int UpdateAnimal(int id, ReplaceAnimalRequest animalRequest);
+    int DeleteAnimal(int id);
 }

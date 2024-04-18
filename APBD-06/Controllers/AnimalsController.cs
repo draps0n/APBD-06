@@ -1,6 +1,6 @@
-﻿using APBD_06.Enums;
+﻿using APBD_06.DTOs;
+using APBD_06.Enums;
 using APBD_06.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APBD_06.Controllers;
@@ -27,5 +27,26 @@ public class AnimalsController(IAnimalService animalService) : ControllerBase
         }
 
         return BadRequest();
+    }
+
+    [HttpPost]
+    public IActionResult AddAnimal([FromBody] CreateAnimalRequest animalRequest)
+    {
+        _animalService.AddAnimal(animalRequest);
+        return StatusCode(StatusCodes.Status201Created);
+    }
+
+    [HttpPut("{id:int}")]
+    public IActionResult UpdateAnimal(int id, [FromBody] ReplaceAnimalRequest animalRequest)
+    {
+        _animalService.UpdateAnimal(id, animalRequest);
+        return NoContent();
+    }
+    
+    [HttpDelete("{id:int}")]
+    public IActionResult DeleteAnimal(int id)
+    {
+        _animalService.DeleteAnimal(id);
+        return NoContent();
     }
 }
