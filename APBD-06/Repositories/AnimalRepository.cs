@@ -67,7 +67,7 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         using var cmd = new SqlCommand();
         if (animalRequest.Description is null)
         {
-            cmd.CommandText = "UPDATE Animal SET name = @Name, category = @Category, area = @Area;";
+            cmd.CommandText = "UPDATE Animal SET name = @Name, category = @Category, area = @Area WHERE idAnimal = @idAnimal;";
             cmd.Connection = con;
         }
         else
