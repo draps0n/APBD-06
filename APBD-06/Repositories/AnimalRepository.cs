@@ -14,10 +14,10 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         using var con = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
         var strOrderBy = orderBy switch
         {
-            OrderBy.Description => "description",
-            OrderBy.Category => "category",
-            OrderBy.Area => "area",
-            _ => "name"
+            OrderBy.Description => "description;",
+            OrderBy.Category => "category;",
+            OrderBy.Area => "area;",
+            _ => "name;"
         };
         using var cmd = new SqlCommand("SELECT * FROM Animal ORDER BY " + strOrderBy, con);
 
@@ -67,7 +67,7 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         using var cmd = new SqlCommand();
         if (animalRequest.Description is null)
         {
-            cmd.CommandText = "UPDATE Animal SET name = @Name, category = @Category, area = @Area);";
+            cmd.CommandText = "UPDATE Animal SET name = @Name, category = @Category, area = @Area;";
             cmd.Connection = con;
         }
         else
@@ -90,7 +90,7 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
     {
         using var con = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
         using var cmd = new SqlCommand();
-        cmd.CommandText = "DELETE FROM Animal WHERE idAnimal = @idAnimal";
+        cmd.CommandText = "DELETE FROM Animal WHERE idAnimal = @idAnimal;";
         cmd.Connection = con;
         
         cmd.Parameters.AddWithValue("@idAnimal", id);
